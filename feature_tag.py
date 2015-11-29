@@ -23,11 +23,11 @@ def process_sentence(sentence):
 def process_file(in_filename, out_filename):
     with open(out_filename, "w") as out_file:
         with open(in_filename, "r") as in_file:
-            for word in in_file.read().splitlines():
-                if len(word.strip()) > 0:
-                    out_file.write(get_tags(word) + "\n")
+            for line in in_file.read().splitlines():
+                if len(line.strip()) > 0 and "-DOCSTART-" not in line:
+                    out_file.write(get_tags(line.split()[0]) + "\n")
 
 
 test = "chicago, Pittsburgh abc 12 1992 ds2 32 2015 32 A8956-67 09-96 11/9/89 23,000.00 1.00 456789 BBN Sally can"
 temp = process_sentence(test)
-process_file("in_file.txt", "file_test.txt")
+process_file("eng.train.txt", "file_test.txt")
